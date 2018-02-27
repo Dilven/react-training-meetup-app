@@ -1,13 +1,13 @@
 import React from 'react';
-import events from './data/events.json';
 
 
 
 
-const getEvents = () => {
+const Events = (props) => {
+    console.log(props);
     return (
         <ul>
-        {events.map((event, index) => {
+        {props.events.map((event, index) => {
         
             const date = new Date(event.date);
 
@@ -25,4 +25,4 @@ const getEvents = () => {
     </ul>
 )};
 
-export default getEvents;
+export default Events;

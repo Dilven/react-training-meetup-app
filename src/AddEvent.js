@@ -7,10 +7,10 @@ const AddEvent = (props) => {
         <div>
             Dodawanie nowego wydarzenia <br />
             <form onSubmit={props.onAddEvent}>
-                <input type="text" placeholder="nazwa wydarzenia" onChange={props.eventName} value={props.newEventName}></input><br />
-                <input type="text" placeholder="miejsce" onChange={props.eventPlace} value={props.newEventPlace}></input><br />
-                <input type="text" placeholder="godzina" onChange={props.eventTime} value={props.newEventTime}></input><br />
-                <input type="text" placeholder="godzina" onChange={props.eventDate} value={props.newEventDate}></input><br />
+                <input type="text" placeholder="nazwa wydarzenia" onChange={props.onInputNewEvent.bind(this,'newEventName')} value={props.newEventName}></input><br />
+                <input type="text" placeholder="miejsce" onChange={props.onInputNewEvent.bind(this,'newEventPlace')} value={props.newEventPlace}></input><br />
+                <input type="text" placeholder="godzina" onChange={props.onInputNewEvent.bind(this,'newEventTime')} value={props.newEventTime}></input><br />
+                <input type="text" placeholder="godzina" onChange={props.onInputNewEvent.bind(this,'newEventDate')} value={props.newEventDate}></input><br />
                 <button type="submit">Dodaj</button>
             </form>
         </div>
@@ -20,11 +20,9 @@ const AddEvent = (props) => {
 
     AddEvent.propTypes = {
         newEventName: PropTypes.string.isRequred,
-        eventPlace: PropTypes.func.isRequred,
         newEventPlace: PropTypes.string.isRequred,
-        eventPlace: PropTypes.func.isRequred,
         newEventTime: PropTypes.string.isRequred,
-        eventTime: PropTypes.func.isRequred,
+        onInputNewEvent: PropTypes.func.isRequired,
         onAddEvent: PropTypes.func.isRequired
     }
 }

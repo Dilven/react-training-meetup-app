@@ -54,21 +54,9 @@ class Events extends React.Component {
         this.setState({ filter: newValue });
     }
 
-    eventName(event) {
+    onInputNewEvent(field, event) {
         const newValue = event.currentTarget.value;
-        this.setState({newEventName: newValue});
-    }
-    eventTime(event) {
-        const newValue = event.currentTarget.value;
-        this.setState({newEventTime: newValue});
-    }
-    eventPlace(event) {
-        const newValue = event.currentTarget.value;
-        this.setState({newEventPlace: newValue});
-    }
-    eventDate(event) {
-        const newValue = event.currentTarget.value;
-        this.setState({newEventDate: newValue});
+        this.setState({[field]: newValue});
     }
     onAddEvent(event) {
         event.preventDefault();
@@ -101,10 +89,7 @@ class Events extends React.Component {
             <FiltrationList onInputChange={this.onFilterChange.bind(this)} filter={this.state.filter}/>
             <EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.state.events} filter={this.state.filter}/>
             <AddEvent 
-            eventName={this.eventName.bind(this)} newEventName={this.state.newEventName}
-            eventTime={this.eventTime.bind(this)} newTimeName={this.state.newEventTime}
-            eventPlace={this.eventPlace.bind(this)} newPlaceName={this.state.newEventPlace}
-            eventDate={this.eventDate.bind(this)} newDateName={this.state.newEventDate}            
+            onInputNewEvent={this.onInputNewEvent.bind(this)} newEventTime={this.state.newEventTime}          
             onAddEvent={this.onAddEvent.bind(this)}/>
         </div>
         )

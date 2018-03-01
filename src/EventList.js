@@ -13,7 +13,8 @@ const EventList = (props) => {
                         return (
                             <li key={event.id}>
                                 Nazwa: {event.name} <br />
-                                Gdzie: {event.place} <br /> 
+                                Gdzie: {event.place} <br />
+                                Data: {event.date} <br /> 
                                 Godzina: {event.time} <br />
                                 <button onClick={props.deleteEvent.bind(this, event.id)}>Usuń</button> <br /><br />
                             </li>

@@ -18,9 +18,13 @@ class Events extends React.Component {
             events: [],
             filter:'',
             newEventName:'',
+            newEventNameValid:false,
             newEventTime:'',
+            newEventTimeValid:false,
             newEventPlace:'',
-            newEventDate:''
+            newEventPlaceValid:false,
+            newEventDate:'',
+            newEventDateValid:false
         };
         this.onClickClear = this.onClickClear.bind(this);
         this.showEvents = this.showEvents.bind(this);
@@ -56,7 +60,10 @@ class Events extends React.Component {
 
     onInputNewEvent(field, event) {
         const newValue = event.currentTarget.value;
-        this.setState({[field]: newValue});
+        this.setState({
+            [field]: newValue,
+            [field + 'Valid']: newValue.length > 0
+        });
     }
     onAddEvent(event) {
         event.preventDefault();
@@ -67,6 +74,10 @@ class Events extends React.Component {
             newEventPlace,
             newEventTime,
             newEventDate,
+            newEventNameValid,
+            newEventPlaceValid,
+            newEventTimeValid,
+            newEventDateValid,
         } = this.state;
 
         const maxId = Math.max(...events.map(item => item.id));
@@ -78,9 +89,12 @@ class Events extends React.Component {
             date: newEventDate,
             time: newEventTime
         }
-        events.push(newEvent);
-        this.setState({events});
-        this.setState({newEventName:'', newEventPlace:'', newEventTime:''})
+
+        if(newEventNameValid && newEventPlaceValid && newEventDateValid && newEventTimeValid) {
+            events.push(newEvent);
+            this.setState({events});  
+            this.setState({newEventName:'', newEventPlace:'', newEventTime:''})
+        }
     }
 
     render() {
@@ -89,7 +103,15 @@ class Events extends React.Component {
             <FiltrationList onInputChange={this.onFilterChange.bind(this)} filter={this.state.filter}/>
             <EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.state.events} filter={this.state.filter}/>
             <AddEvent 
-            onInputNewEvent={this.onInputNewEvent.bind(this)} newEventTime={this.state.newEventTime}          
+            newEventName={this.state.newEventName}
+            newEventNameValid={this.state.newEventNameValid}
+            newEventDate={this.state.newEventDate}
+            newEventDateValid={this.state.newEventDateValid}
+            newEventPlace={this.state.newEventPlace}
+            newEventPlaceValid={this.state.newEventPlaceValid}
+            newEventTime={this.state.newEventTime}
+            newEventTimeValid={this.state.newEventTimeValid}
+            onInputNewEvent={this.onInputNewEvent.bind(this)}
             onAddEvent={this.onAddEvent.bind(this)}/>
         </div>
         )

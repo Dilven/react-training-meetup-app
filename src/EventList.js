@@ -6,9 +6,9 @@ const EventList = (props) => {
         <div>
             <ul>
                 {props.events.map((event) => {
-                
+            
                     const date = new Date(event.date);
-
+            
                     if(date >= Date.now() && event.name.indexOf(props.filter) > -1) {
                         return (
                             <li key={event.id}>
@@ -19,7 +19,7 @@ const EventList = (props) => {
                                 <button onClick={props.deleteEvent.bind(this, event.id)}>Usuń</button> <br /><br />
                             </li>
                         );
-                    }
+                    } else return false;
                 })}
             </ul>
             <button onClick={props.onClickClear}>Wyczyść</button>

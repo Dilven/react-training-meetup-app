@@ -13,8 +13,8 @@ const FiltrationList = (props) => {
     }
 
 FiltrationList.propTypes = {
-    filter: PropTypes.string.isRequred,
-    onFilterChange: PropTypes.func.isRequred
+    filter: PropTypes.string.isRequired,
+    onInputChange: PropTypes.func.isRequired
 }
 
 export default FiltrationList

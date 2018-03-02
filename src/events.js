@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import events from './data/events.json';
 import EventList from './EventList.js';
-import FiltrationList from './FiltrationList.js'
-import AddEvent from './AddEvent.js'
+import FiltrationList from './FiltrationList.js';
+import AddEvent from './AddEvent.js';
+import Loader from './Loader.js';
+
+import fetch from 'isomorphic-fetch';
 
 class Events extends React.Component {
     
@@ -24,14 +27,20 @@ class Events extends React.Component {
             newEventPlace:'',
             newEventPlaceValid:false,
             newEventDate:'',
-            newEventDateValid:false
+            newEventDateValid:false,
+            isLoading:true
         };
         this.onClickClear = this.onClickClear.bind(this);
         this.showEvents = this.showEvents.bind(this);
     }
 
     componentDidMount() {
-        this.setState({events})
+    
+        fetch('http://frontendinsights.com/events.json')
+            .then((response) => response.json())
+            .then((events) => {
+            this.setState({events, isLoading:false})
+        });   
     }
 
     onClickClear(event) {
@@ -101,7 +110,7 @@ class Events extends React.Component {
         return (
         <div>
             <FiltrationList onInputChange={this.onFilterChange.bind(this)} filter={this.state.filter}/>
-            <EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.state.events} filter={this.state.filter}/>
+            <Loader isLoading={this.state.isLoading}><EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.state.events} filter={this.state.filter}/></Loader>
             <AddEvent 
             newEventName={this.state.newEventName}
             newEventNameValid={this.state.newEventNameValid}

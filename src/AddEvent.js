@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AddEvent = (props) => {
-console.log(props);
     return(
         <div>
             Dodawanie nowego wydarzenia <br />
@@ -19,21 +18,19 @@ console.log(props);
             </form>
         </div>
     )
+}
 
-
-
-    AddEvent.propTypes = {
-        newEventName: PropTypes.string.isRequred,
-        newEventPlace: PropTypes.string.isRequred,
-        newEventTime: PropTypes.string.isRequred,
-        newEventDate:PropTypes.string.isRequired,
-        newEventNameValid: PropTypes.bool.isRequred,
-        newEventPlaceValid: PropTypes.bool.isRequred,
-        newEventTimeValid: PropTypes.bool.isRequred,
-        newEventDateValid: PropTypes.bool.isRequired,
-        onInputNewEvent: PropTypes.func.isRequired,
-        onAddEvent: PropTypes.func.isRequired
-    }
+AddEvent.propTypes = {
+    newEventName: PropTypes.string.isRequired,
+    newEventPlace: PropTypes.string.isRequired,
+    newEventTime: PropTypes.string.isRequired,
+    newEventDate:PropTypes.string.isRequired,
+    newEventNameValid: PropTypes.bool.isRequired,
+    newEventPlaceValid: PropTypes.bool.isRequired,
+    newEventTimeValid: PropTypes.bool.isRequired,
+    newEventDateValid: PropTypes.bool.isRequired,
+    onInputNewEvent: PropTypes.func.isRequired,
+    onAddEvent: PropTypes.func.isRequired
 }
 
 export default AddEvent;

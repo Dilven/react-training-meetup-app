@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import events from './data/events.json';
 import EventList from './EventList.js';
 import FiltrationList from './FiltrationList.js';
 import AddEvent from './AddEvent.js';
-import Loader from './Loader.js';
+import Loader from '../Loader.js';
+
 
 import fetch from 'isomorphic-fetch';
 
@@ -50,7 +50,7 @@ class Events extends React.Component {
 
     showEvents(event) {
         event.preventDefault();        
-        this.setState({events});
+        //this.setState({events});
     }
 
     deleteEvent(index,event) {

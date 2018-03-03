@@ -1,9 +1,14 @@
 import React from 'react';
+import {
+    Link
+  } from 'react-router-dom'
+  
 
 const EventList = (props) => {
     
     return (
         <div>
+            <Link to={"/about"}>Co to za strona?</Link>
             <ul>
                 {props.events.map((event) => {
             
@@ -16,7 +21,9 @@ const EventList = (props) => {
                                 Gdzie: {event.place} <br />
                                 Data: {event.date} <br /> 
                                 Godzina: {event.time} <br />
-                                <button onClick={props.deleteEvent.bind(this, event.id)}>Usuń</button> <br /><br />
+                                <button onClick={props.deleteEvent.bind(this, event.id)}>Usuń</button>
+                                <button><Link to={'/details/'+ event.id}>Szczegóły</Link></button> 
+                                <br /><br />
                             </li>
                         );
                     } else return false;

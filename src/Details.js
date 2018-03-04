@@ -1,5 +1,5 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
+import events from './data/events.json'
   
 class Details extends React.Component {
  
@@ -12,20 +12,30 @@ class Details extends React.Component {
 
     }
 
-    componentDidMount() {
+    getEvent () {
         const itemId = this.props.match.params.itemId;
-        fetch('http://frontendinsights.com/events.json')
-        .then((response) => response.json())
-        .then((events) => {
-            const event = events.find(element =>element.id === parseInt(itemId,10));
-        this.setState({event});
-    }); 
+        const event = events.find(element =>element.id === parseInt(itemId,10));
+        
+        return event;
+        
+    }
 
+    componentDidMount() {
+            this.setState({event:this.getEvent()});
+        
+
+    }
+
+    componentDidUpdate() {
+        const event = this.getEvent();
+
+        if(event.id!==this.state.event.id) {
+            this.setState({event});
+        }
     }
 
     render() {
 
-        console.log(this.state.event);
 
         const {name,place,date,time} = this.state.event;
         

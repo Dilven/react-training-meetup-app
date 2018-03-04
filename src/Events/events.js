@@ -18,7 +18,8 @@ class Events extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            events: [],
+            events:[],
+            eventsShow:[],
             filter:'',
             newEventName:'',
             newEventNameValid:false,
@@ -39,7 +40,7 @@ class Events extends React.Component {
         fetch('http://frontendinsights.com/events.json')
             .then((response) => response.json())
             .then((events) => {
-            this.setState({events, isLoading:false})
+            this.setState({events, eventsShow:events, isLoading:false})
         });   
     }
 
@@ -50,7 +51,7 @@ class Events extends React.Component {
 
     showEvents(event) {
         event.preventDefault();        
-        //this.setState({events});
+        this.setState({events:this.state.eventsShow});
     }
 
     deleteEvent(index,event) {
@@ -114,11 +115,8 @@ class Events extends React.Component {
             <AddEvent 
             newEventName={this.state.newEventName}
             newEventNameValid={this.state.newEventNameValid}
-            newEventDate={this.state.newEventDate}
             newEventDateValid={this.state.newEventDateValid}
-            newEventPlace={this.state.newEventPlace}
             newEventPlaceValid={this.state.newEventPlaceValid}
-            newEventTime={this.state.newEventTime}
             newEventTimeValid={this.state.newEventTimeValid}
             onInputNewEvent={this.onInputNewEvent.bind(this)}
             onAddEvent={this.onAddEvent.bind(this)}/>

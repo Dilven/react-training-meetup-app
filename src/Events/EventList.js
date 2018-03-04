@@ -1,5 +1,7 @@
 import React from 'react';
+import Details from '../Details.js';
 import {
+    Route,
     Link
   } from 'react-router-dom'
   
@@ -18,17 +20,15 @@ const EventList = (props) => {
                         return (
                             <li key={event.id}>
                                 Nazwa: {event.name} <br />
-                                Gdzie: {event.place} <br />
-                                Data: {event.date} <br /> 
-                                Godzina: {event.time} <br />
                                 <button onClick={props.deleteEvent.bind(this, event.id)}>Usuń</button>
                                 <button><Link to={'/details/'+ event.id}>Szczegóły</Link></button> 
-                                <br /><br />
+                                <br />
                             </li>
                         );
                     } else return false;
                 })}
             </ul>
+            <Route path="/details/:itemId" component={Details} />
             <button onClick={props.onClickClear}>Wyczyść</button>
             <button onClick={props.showEvents}>Pokaz wszystkie wydarzenia</button>
         </div>

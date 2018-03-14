@@ -4,6 +4,8 @@ import EventList from './EventList.js';
 import FiltrationList from './FiltrationList.js';
 import AddEvent from './AddEvent.js';
 import Loader from '../Loader.js';
+import { connect } from 'react-redux';
+import * as actions from '../actions/events';
 
 
 import fetch from 'isomorphic-fetch';
@@ -18,7 +20,6 @@ class Events extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            events:[],
             eventsShow:[],
             filter:'',
             newEventName:'',
@@ -29,7 +30,6 @@ class Events extends React.Component {
             newEventPlaceValid:false,
             newEventDate:'',
             newEventDateValid:false,
-            isLoading:true
         };
         this.onClickClear = this.onClickClear.bind(this);
         this.showEvents = this.showEvents.bind(this);
@@ -37,36 +37,36 @@ class Events extends React.Component {
 
     componentDidMount() {
     
-        fetch('http://frontendinsights.com/events.json')
-            .then((response) => response.json())
-            .then((events) => {
-            this.setState({events, eventsShow:events, isLoading:false})
-        });   
+        // fetch('http://frontendinsights.com/events.json')
+        //     .then((response) => response.json())
+        //     .then((events) => {
+        //     this.setState({events, eventsShow:events, isLoading:false})
+        // });   
     }
 
     onClickClear(event) {
         event.preventDefault();        
-        this.setState({events:[]});
-    }
+        this.props.clearEvents();
+    };
 
     showEvents(event) {
         event.preventDefault();        
         this.setState({events:this.state.eventsShow});
-    }
+    };
 
     deleteEvent(index,event) {
         event.preventDefault();
-        const choiceEvents = this.state.events.filter(element =>element.id !== index);
+        const choiceEvents = this.props.events.filter(element =>element.id !== index);
         this.setState((prevState,props) => {
             return {events: choiceEvents};
         });
-    }
+    };
 
     onFilterChange(event) {
         event.preventDefault();
         const newValue = event.currentTarget.value;
         this.setState({ filter: newValue });
-    }
+    };
 
     onInputNewEvent(field, event) {
         const newValue = event.currentTarget.value;
@@ -74,7 +74,7 @@ class Events extends React.Component {
             [field]: newValue,
             [field + 'Valid']: newValue.length > 0
         });
-    }
+    };
     onAddEvent(event) {
         event.preventDefault();
 
@@ -111,7 +111,7 @@ class Events extends React.Component {
         return (
         <div>
             <FiltrationList onInputChange={this.onFilterChange.bind(this)} filter={this.state.filter}/>
-            <Loader isLoading={this.state.isLoading}><EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.state.events} filter={this.state.filter}/></Loader>
+            <Loader isLoading={this.props.isLoading}><EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.props.events} filter={this.state.filter}/></Loader>
             <AddEvent 
             newEventName={this.state.newEventName}
             newEventNameValid={this.state.newEventNameValid}
@@ -125,4 +125,17 @@ class Events extends React.Component {
     }   
 }
 
-export default Events;
+
+const mapStateToProps = (state) => {
+    return{
+        ...state
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearEvents:() => dispatch(actions.clearEvents())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Events);

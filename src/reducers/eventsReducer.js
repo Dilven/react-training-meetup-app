@@ -28,7 +28,7 @@ export function eventsReducer(state = initialState, action) {
         case constants.EVENTS_INPUT_NEW_EVENT:
             return {...state, [action.payload.field]: action.payload.newValue, [action.payload.field + 'Valid']: action.payload.newValue.length > 0}
         case constants.EVENTS_ADD:
-            return {...state, events: action.payload.events}
+            return {...state, events: action.payload.events, newEventDate:'', newEventTime:'', newEventName:'', newEventPlace:''}
         default:
             return state;
         }

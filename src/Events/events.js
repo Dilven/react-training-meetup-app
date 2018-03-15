@@ -6,7 +6,6 @@ import AddEvent from './AddEvent.js';
 import Loader from '../Loader.js';
 import { connect } from 'react-redux';
 import * as actions from '../actions/events';
-import { addEvent } from '../actions/events';
 
 class Events extends React.Component {
     
@@ -62,7 +61,7 @@ class Events extends React.Component {
             newEventPlaceValid,
             newEventTimeValid,
             newEventDateValid,
-        } = this.props;
+        } = this.props.events;
 
         const maxId = Math.max(...events.map(item => item.id));
 
@@ -85,13 +84,13 @@ class Events extends React.Component {
         return (
         <div>
             <FiltrationList onInputChange={this.onFilterChange.bind(this)} filter={this.state.filter}/>
-            <Loader isLoading={this.props.isLoading}><EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.props.events} filter={this.props.filter}/></Loader>
+            <Loader isLoading={this.props.events.isLoading}><EventList onClickClear={this.onClickClear.bind(this)} showEvents={this.showEvents.bind(this)} deleteEvent={this.deleteEvent.bind(this)} events={this.props.events.events} filter={this.props.events.filter}/></Loader>
             <AddEvent 
-            newEventName={this.props.newEventName}
-            newEventNameValid={this.props.newEventNameValid}
-            newEventDateValid={this.props.newEventDateValid}
-            newEventPlaceValid={this.props.newEventPlaceValid}
-            newEventTimeValid={this.props.newEventTimeValid}
+            newEventName={this.props.events.newEventName}
+            newEventNameValid={this.props.events.newEventNameValid}
+            newEventDateValid={this.props.events.newEventDateValid}
+            newEventPlaceValid={this.props.events.newEventPlaceValid}
+            newEventTimeValid={this.props.events.newEventTimeValid}
             onInputNewEvent={this.onInputNewEvent.bind(this)}
             onAddEvent={this.onAddEvent.bind(this)}/>
         </div>
@@ -99,7 +98,7 @@ class Events extends React.Component {
     }   
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps= (state) => {
     return {
         ...state
     };

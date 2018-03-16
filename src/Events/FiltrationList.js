@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const FiltrationList = (props) => {
 
@@ -10,11 +9,6 @@ const FiltrationList = (props) => {
                 </form>
             </div>
         );
-    }
-
-FiltrationList.propTypes = {
-    filter: PropTypes.string.isRequired,
-    onInputChange: PropTypes.func.isRequired
-}
+    };
 
 export default FiltrationList

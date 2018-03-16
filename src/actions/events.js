@@ -1,4 +1,5 @@
 import *as constants from '../constants';
+import fetch from 'isomorphic-fetch';
 
 export function clearEvents () {
     return {
@@ -40,5 +41,40 @@ export function addEvent(events) {
         payload: {
             events
         }
+    };
+};
+
+export function requestStarted() {
+    return{
+        type: constants.GET_DATA_STARTED
+    }
+}
+
+export function success(data) {
+    return {
+        type: constants.GET_DATA_SUCCESS,
+        payload: {
+            events: data
+        }
+    };
+};
+
+export function failed(error) {
+    return {
+        type: constants.GET_DATA_FAILED,
+        payload: {
+            error
+        }
+    };
+};
+
+export function getData() {
+    return (dispatch) => {
+        dispatch(requestStarted());
+
+        fetch('http://frontendinsights.com/events.json')
+            .then(response => response.json())
+            .then(data => dispatch(success(data)))
+            .catch(error => dispatch(failed(error)))
     };
 };

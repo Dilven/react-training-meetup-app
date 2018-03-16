@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const AddEvent = (props) => {
     return(
@@ -18,19 +17,6 @@ const AddEvent = (props) => {
             </form>
         </div>
     )
-}
-
-AddEvent.propTypes = {
-    newEventName: PropTypes.string.isRequired,
-    newEventPlace: PropTypes.string.isRequired,
-    newEventTime: PropTypes.string.isRequired,
-    newEventDate:PropTypes.string.isRequired,
-    newEventNameValid: PropTypes.bool.isRequired,
-    newEventPlaceValid: PropTypes.bool.isRequired,
-    newEventTimeValid: PropTypes.bool.isRequired,
-    newEventDateValid: PropTypes.bool.isRequired,
-    onInputNewEvent: PropTypes.func.isRequired,
-    onAddEvent: PropTypes.func.isRequired
 }
 
 export default AddEvent;

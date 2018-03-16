@@ -1,44 +1,22 @@
 import React from 'react';
-import events from './data/events.json'
+import { connect } from 'react-redux';
+import * as actions from './actions/details.js';
   
 class Details extends React.Component {
- 
-    constructor(props) {
-
-        super(props);
-        this.state = {
-            event: {},
-        }
-
-    }
-
-    getEvent () {
-        const itemId = this.props.match.params.itemId;
-        const event = events.find(element =>element.id === parseInt(itemId,10));
-        
-        return event;
-        
-    }
-
+   
     componentDidMount() {
-            this.setState({event:this.getEvent()});
-        
-
-    }
+        const itemId = this.props.match.params.itemId; 
+        this.props.showDetails(itemId)
+    };
 
     componentDidUpdate() {
-        const event = this.getEvent();
-
-        if(event.id!==this.state.event.id) {
-            this.setState({event});
+        if(this.props.itemId !== this.props.match.params.itemId) {
+            this.props.showDetails(this.props.match.params.itemId);            
         }
-    }
+    };
 
     render() {
-
-
-        const {name,place,date,time} = this.state.event;
-        
+        const {name,place,date,time} = this.props.event;
         return (
             <div>
                 <strong>Nazwa: </strong>{name}<br />
@@ -46,9 +24,22 @@ class Details extends React.Component {
                 <strong>Data: </strong>{date}<br />
                 <strong>Godzina: </strong>{time}<br />
             </div>
-    
-        )
-    }
-  }
+        );
+    };
+  };
 
-  export default Details;
+
+const mapStateToProps = (state) => {
+    return {
+        ...state.details
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showDetails: (itemId) => dispatch(actions.showDetails(itemId)),
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

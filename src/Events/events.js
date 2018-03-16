@@ -23,6 +23,10 @@ class Events extends React.Component {
         this.showEvents = this.showEvents.bind(this);
     };
 
+    componentDidMount() {
+        this.props.getData();
+    }
+
     onClickClear(event) {
         event.preventDefault();        
         this.props.clearEvents();
@@ -111,6 +115,8 @@ const mapDispatchToProps = (dispatch) => {
         filteredEvents: (value) => dispatch(actions.filteredEvents(value)),
         inputNewEvent: (field, newValuve) => dispatch(actions.inputNewEvent(field, newValuve)),
         addEvent: (newEvents) => dispatch(actions.addEvent(newEvents)),
+        getData: ()  => dispatch(actions.getData())
+
     };
 };
 

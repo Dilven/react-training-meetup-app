@@ -5,17 +5,18 @@ import * as actions from './actions/details.js';
 class Details extends React.Component {
    
     componentDidMount() {
-        const itemId = this.props.match.params.itemId; 
-        this.props.showDetails(itemId)
+        this.props.getDataDetails();
     };
 
     componentDidUpdate() {
-        if(this.props.itemId !== this.props.match.params.itemId) {
-            this.props.showDetails(this.props.match.params.itemId);            
+        if(this.props.shouldFind || this.props.match.params.itemId !== this.props.eventId) {
+            const id = this.props.match.params.itemId;
+            this.props.showDetails(id)
         }
     };
 
     render() {
+        console.log(this.props.event)
         const {name,place,date,time} = this.props.event;
         return (
             <div>
@@ -37,7 +38,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showDetails: (itemId) => dispatch(actions.showDetails(itemId)),
+        showDetails: (eventId) => dispatch(actions.showDetails(eventId)),
+        getDataDetails: () => dispatch(actions.getDataDetails()),
 
     };
 };

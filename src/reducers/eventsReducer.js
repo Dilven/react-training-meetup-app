@@ -13,8 +13,7 @@ const initialState = {
     newEventDate:'',
     newEventDateValid:false,
 }
-export function eventsReducer(state = initialState, action) {
-    
+export const events = (state = initialState, action) => {
     switch(action.type){
         case constants.GET_DATA_STARTED:
             return {...state, isLoading: true};
